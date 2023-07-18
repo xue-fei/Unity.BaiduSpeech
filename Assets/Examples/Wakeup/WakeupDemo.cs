@@ -19,6 +19,7 @@ namespace BaiduSpeech.Examples
             m_BaiduSpeechManager.onSpeechEventListener += OnSpeechEventListener;
 
             stateText.text = "初始化唤醒词!";
+            m_BaiduSpeechManager.RequestPermissions(100, AndroidPermission.RECORD_AUDIO);
         }
 
         private void OnDestroy()
@@ -38,6 +39,5 @@ namespace BaiduSpeech.Examples
                 content.text = wakeupParams.word;
             }
         }
-
     }
 }

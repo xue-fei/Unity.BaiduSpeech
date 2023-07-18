@@ -43,7 +43,7 @@ namespace BaiduSpeech
         {
             if (m_WakeupJavaObject != null)
             {
-                string path = "assets://" + wakeUpPath;
+                string path = "assets:///" + wakeUpPath;
                 m_WakeupJavaObject.CallStatic("Start", path);
             }
             else Debug.LogWarning(GetType() + "/Start()/ m_WakeupJavaObject is null!");

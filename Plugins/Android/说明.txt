@@ -1,0 +1,3 @@
+Termina 输入命令 gradle makeJar 打包jar
+
+输出到app\build\libs下

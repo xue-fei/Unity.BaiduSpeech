@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-     package="com.hiscene.baiduspeech">
-    
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+   package="cn.net.xuefei.king">
+	
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- 这个android:label设置后，unity中ProductName就不生效了，记得改这个-->
-    <application android:label="BaiduSpeech">
-        
-        <meta-data android:name="com.baidu.speech.APP_ID"
-        android:value="21554025" />
-        <meta-data
+	<!-- 这个android:label设置后，unity中ProductName就不生效了，记得改这个-->
+	<application>
+		<meta-data android:name="com.baidu.speech.APP_ID"
+        android:value="32097154" />
+		<meta-data
         android:name="com.baidu.speech.API_KEY"
-        android:value="oihuTZ4kIwWctUmnnTIj39YA" />
-        <meta-data
+        android:value="8GtmKHNgOzE6d5urlXWckrag" />
+		<meta-data
         android:name="com.baidu.speech.SECRET_KEY"
-        android:value="wMCLOlTWSrzPbHz9cyWEZnpTGfoV78Yd" />
+        android:value="7pfGMDh5hb9ywZ2nvDNmbCqE8jwXKNhh" />
 
-        <!-- 这个android:name的值必须为包名+类名-->
-        <activity android:name="com.hiscene.baiduspeech.MainActivity">
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
- 
-            <!-- 这一行不能少，否则会闪退-->
-             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
-         </activity>
-     </application>
+		<!-- 这个android:name的值必须为包名+类名-->
+		<activity android:name="cn.net.xuefei.king.MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
+			<!-- 这一行不能少，否则会闪退-->
+			<meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+		</activity>
+	</application>
 
 </manifest>

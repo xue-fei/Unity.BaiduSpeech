@@ -6,9 +6,9 @@ namespace BaiduSpeech
     /// <summary>百度语音管理类</summary>
     public class BaiduSpeechManager : MonoBehaviour
     {
-        private const string APP_ID = "21554025";
-        private const string API_KEY = "oihuTZ4kIwWctUmnnTIj39YA";
-        private const string SECRET_KEY = "wMCLOlTWSrzPbHz9cyWEZnpTGfoV78Yd";
+        private const string APP_ID = "32097154";
+        private const string API_KEY = "8GtmKHNgOzE6d5urlXWckrag";
+        private const string SECRET_KEY = "7pfGMDh5hb9ywZ2nvDNmbCqE8jwXKNhh";
 
         /// <summary>语音识别事件</summary>
         public event Action<SpeechEventListenerInfo> onSpeechEventListener = null;
@@ -25,35 +25,28 @@ namespace BaiduSpeech
 
         private void Awake()
         {
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-
-            try
+            if (Application.platform == RuntimePlatform.Android)
             {
-                AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                baiduSpeechJavaObject = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-                baiduSpeechJavaObject.Call("Init", baiduSpeechJavaObject, gameObject.name);
+                try
+                {
+                    AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                    baiduSpeechJavaObject = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                    baiduSpeechJavaObject.Call("Init", baiduSpeechJavaObject, gameObject.name);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning(GetType() + "/Awake()/ Exception:" + e);
+                }
+
+                m_Asr = gameObject.AddComponent<AsrForAndroid>();
+                m_Wakeup = gameObject.AddComponent<WakeupForAndroid>();
             }
-            catch (Exception e)
+
+            if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                Debug.LogWarning(GetType() + "/Awake()/ Exception:" + e);
+                m_Asr = gameObject.AddComponent<AsrForiOS>();
+                m_Wakeup = gameObject.AddComponent<WakeupForiOS>();
             }
-
-            m_Asr = gameObject.AddComponent<AsrForAndroid>();
-            m_Wakeup = gameObject.AddComponent<WakeupForAndroid>();
-#else
-
-#if UNITY_IPHONE && !UNITY_EDITOR
-
-            m_Asr = gameObject.AddComponent<AsrForiOS>();
-            m_Wakeup = gameObject.AddComponent<WakeupForiOS>(); 
-#else
-
-            m_Asr = gameObject.AddComponent<AsrForWeb>();
-            m_Wakeup = gameObject.AddComponent<WakeupForWeb>();
-#endif
-#endif
-
             SetBaiduSpeechLicenese();
         }
 
@@ -209,7 +202,7 @@ namespace BaiduSpeech
                 case MessageCode.Error: Debug.LogError(GetType() + "/PlatformMessage()/" + platformMessageParams.Content); break;
                 case MessageCode.OnAsrCallback: OnSpeechCallback(platformMessageParams.Content); break;
                 case MessageCode.OnWakeupCallback: OnSpeechCallback(platformMessageParams.Content); break;
-                case MessageCode.onRequestPermissionsResult:OnRequestPermissionsResult(platformMessageParams.Content);break;
+                case MessageCode.onRequestPermissionsResult: OnRequestPermissionsResult(platformMessageParams.Content); break;
                 default:
                     break;
             }
